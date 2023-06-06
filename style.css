@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(252, 247, 239);
+    gap: 20px;
+}
+
+header {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    height: 7vh;
+    width: 100vw;
+    margin-top: 15px;
+}
+header img {
+    margin: 0 1vw 0 1vw;
+    height: auto;
+    width: 70px;
+}
+header h1 {
+    margin: 2vh 0;
+}
+
+
+/* Mobile screen */
+@media only screen and (max-width: 500px) {
+    header img {
+        height: 50px;
+        width: auto;
+    }
+    header h1 {
+        /* align header title to the book icon */
+        margin: 1vh 0;
+    }
+}
