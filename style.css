@@ -44,17 +44,17 @@ hr {
 nav {
     display: flex;
     justify-content: center;
-    gap: 3vw;
+    gap: 2vw;
 }
 nav img {
     width: auto;
-    height: 2.6vw;
+    height: 4vh;
     padding-left: 3px;
     padding-right: 3px;
 }
 nav button {
     background-color: var(--nav-btn-color);
-    border-radius: 18px 18px 18px 18px;
+    border-radius: 10px 10px 10px 10px;
 }
 nav button:hover {
     background-color: var(--nav-btn-hover);
@@ -63,10 +63,10 @@ nav button:hover {
     display: flex;
 }
 .btn-group button:first-child {
-    border-radius: 18px 0px 0px 18px;
+    border-radius: 10px 0px 0px 10px;
 }
 .btn-group button:last-child {
-    border-radius: 0px 18px 18px 0px;
+    border-radius: 0px 10px 10px 0px;
 }
 
 
