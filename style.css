@@ -1,9 +1,22 @@
+:root {
+--body-color:  rgb(252, 247, 239);
+--nav-btn-color: rgb(246, 230, 219);
+--nav-btn-hover: rgb(233, 202, 181);
+
+}
+
 body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    background-color: rgb(252, 247, 239);
+    background-color: var(--body-color);
     gap: 20px;
+}
+
+nav img, button {
+    margin: 0;
+    border: 0;
+    padding: 0;
 }
 
 header {
@@ -21,6 +34,39 @@ header img {
 }
 header h1 {
     margin: 2vh 0;
+}
+
+hr {
+    width: 50vw;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 3vw;
+}
+nav img {
+    width: auto;
+    height: 2.6vw;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+nav button {
+    background-color: var(--nav-btn-color);
+    border-radius: 18px 18px 18px 18px;
+}
+nav button:hover {
+    background-color: var(--nav-btn-hover);
+}
+.btn-group {
+    display: flex;
+}
+.btn-group button:first-child {
+    border-radius: 18px 0px 0px 18px;
+}
+.btn-group button:last-child {
+    border-radius: 0px 18px 18px 0px;
 }
 
 
