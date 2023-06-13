@@ -53,6 +53,7 @@ nav img {
     padding-right: 3px;
 }
 nav button {
+    padding-top: 3px;  /* centers image inside button */
     background-color: var(--nav-btn-color);
     border-radius: 10px 10px 10px 10px;
 }
