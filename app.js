@@ -25,7 +25,8 @@ function cardMode() {}
 
 function listMode() {}
 
-function addBookToLibrary() {}
+function addBookToLibrary(title, author, status) {
+}
 
 function removeBookFromLibrary() {}
 
@@ -40,8 +41,11 @@ addBookBtn.addEventListener("click", () => {
     // activate html element containing the form to input book details
     
 
+
+});
+createBookSubmit.addEventListener("click", (event) => {
+    event.preventDefault();  // prevents page refresh at form submit
     // retrieve book title, author, status
     // add book to library list
     // add book to list based on status (complete, incomplete)
 });
-createBookSubmit.addEventListener("click", addBookToLibrary);
