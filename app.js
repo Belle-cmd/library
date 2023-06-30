@@ -25,10 +25,23 @@ function cardMode() {}
 
 function listMode() {}
 
-function addBookToLibrary(title, author, status) {}
+function addBookToLibrary() {}
 
 function removeBookFromLibrary() {}
 
 function editBookInLibrary() {}
 
 
+// Retrieve elements form html document and attach functions
+const addBookBtn = document.getElementById("add-btn");
+const createBookSubmit = document.getElementById("book-creation");
+
+addBookBtn.addEventListener("click", () => {
+    // activate html element containing the form to input book details
+    
+
+    // retrieve book title, author, status
+    // add book to library list
+    // add book to list based on status (complete, incomplete)
+});
+createBookSubmit.addEventListener("click", addBookToLibrary);

@@ -22,7 +22,7 @@
             <button><img src="/images/moon.svg" alt="Dark icon"></button>
             <button><img src="/images/sun.svg" alt="Light icon"></button>
         </div>
-        <button><img src="/images/add-box.svg" alt="Add book button"></button>
+        <button><img id="add-btn" src="/images/add-box.svg" alt="Add book button"></button>
     </nav>
     <hr>
     <main>
@@ -33,10 +33,25 @@
                 <button class="card-close"></button>
             </div>
             <img src="/images/default-book.svg" alt="">
-            <p class="title">Title Here</p>
-            <p class="author">Author McWriter</p>
+            <p class="card-title">Title Here</p>
+            <p class="card-author">Author McWriter</p>
         </div>
     </main>
+    <div id="book-creation-wrapper">
+        <button class="close-window"></button>
+        <form action="" method="post" id="book-creation">
+            <label for="title">Title</label>
+            <input type="text">
+
+            <label for="author">Author</label>
+            <input type="text">
+
+            <label for="bookstatus">Not read</label>
+            <input type="checkbox" name="bookstatus" value="completed" id="">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div id="book-editing"></div>
     <script src="app.js"></script>
 </body>
 </html>

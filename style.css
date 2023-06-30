@@ -13,6 +13,8 @@ body {
     flex-direction: column;
     background-color: var(--body-color);
     gap: 20px;
+
+    position: relative;  /* for the book creation/editing forms */
 }
 
 nav img, button, p {
@@ -135,13 +137,26 @@ main {
     height: clamp(10px, 2vw, 35px);
     border-radius: 6px 0 6px;
 }
-.title {
+.card-title {
     margin-top: 10px;
     font-size: 1.5rem;
 }
-.author {
+.card-author {
     font-size: 0.9rem;
-} 
+}
+
+#book-creation-wrapper {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50vw;
+    height: auto;
+}
+#book-creation {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--btn-color);
+}
 
 /* Mobile screen */
 @media only screen and (max-width: 500px) {
