@@ -1,3 +1,5 @@
+'use strict';
+
 const library = [];  // store all books regardless of their list and status
 const completedList = [];  // store finished books
 const incompleteList = [];  // store books not yet finished
@@ -25,7 +27,28 @@ function cardMode() {}
 
 function listMode() {}
 
+/**
+ * addNewBookToLibrary() checks if the book being added already exists in the library or not. If so,
+ * do nothing. Otherwise, add it to the library and the list of completed/incomplete books based on
+ * the status inputted by the user.
+ * @param {*} title     title of the book
+ * @param {*} author    author of the book
+ * @param {*} status    true = completed reading, false = not yet finished
+ */
 function addBookToLibrary(title, author, status) {
+    // checks if the book being created already exists in library
+    const checker = library.find(item => item.title === title && item.author === author);
+    
+    if (typeof checker === "undefined") {
+        // the book doesn't exists in the library yet
+        const newBook = new Book(title, author, status);
+        library.push(newBook);
+        status ? completedList.push(newBook) : incompleteList.push(newBook);
+
+        console.log("New book added");
+    } else {
+        console.log("Book already exists");
+    }
 }
 
 function removeBookFromLibrary() {}
@@ -35,17 +58,20 @@ function editBookInLibrary() {}
 
 // Retrieve elements form html document and attach functions
 const addBookBtn = document.getElementById("add-btn");
-const createBookSubmit = document.getElementById("book-creation");
+const newBookSubmitBtn = document.getElementById("book-creation");
 
-addBookBtn.addEventListener("click", () => {
-    // activate html element containing the form to input book details
+// addBookBtn.addEventListener("click", () => {
+//     // activate html element containing the form to input book details
     
 
-
-});
-createBookSubmit.addEventListener("click", (event) => {
+// });
+newBookSubmitBtn.addEventListener("submit", (event) => {
     event.preventDefault();  // prevents page refresh at form submit
-    // retrieve book title, author, status
-    // add book to library list
-    // add book to list based on status (complete, incomplete)
+
+    // retrieve form data
+    const title = document.getElementById("newbook-title").value;
+    const author = document.getElementById("newbook-author").value;
+    const status = document.getElementById("newbook-status").checked;
+
+    addBookToLibrary(title, author, status);
 });
