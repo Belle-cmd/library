@@ -2,6 +2,7 @@
 --body-color:  rgb(252, 247, 239);
 --btn-color: rgb(250, 229, 216);
 --btn-hover: rgb(233, 202, 181);
+--btn-nav: rgb(167, 178, 197);
 --book-cover:  rgb(210, 231, 235);
 --book-incomplete: rgb(244, 149, 149);
 --book-complete: rgb(137, 206, 137);
@@ -17,7 +18,7 @@ body {
     position: relative;  /* for the book creation/editing forms */
 }
 
-nav img, button, p {
+nav img, button, p, input[type="submit"] {
     margin: 0;
     border: 0;
     padding: 0;
@@ -110,7 +111,6 @@ main {
     gap: 3px;
 }
 .card-options button {
-
     background-color: var(--btn-color);
     width: clamp(10px, 2vw, 25px);
     height: clamp(10px, 2vw, 25px);
@@ -145,17 +145,66 @@ main {
     font-size: 0.9rem;
 }
 
-#book-creation-wrapper {
+
+/* Style for adding new books/editing existing books */
+.book-creation-wrapper {
+    background-color: var(--btn-color);
+
+    font-size: 1em;
     position: absolute;
-    top: 25%;
-    left: 25%;
-    width: 50vw;
+    top: 30%;
+    left: 30%;
+    width: 40vw;
     height: auto;
+    border-radius: 15px;
+
+}
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5em;
+    background-color: var(--btn-hover);
+    padding: 10px 10px 10px 25px;
+    border-radius: 15px 15px 0 0;
+}
+.close-window {
+    background-color: var(--btn-nav);
+    background-image: url(/images/close.svg);
+    width: clamp(20px, 1.8vw, 30px);
+    height: clamp(20px, 1.8vw, 30px);
+    background-size: cover;
+    border-radius: 8px;
 }
 #book-creation {
+    font-size: 1.2em;
+
     display: flex;
     flex-direction: column;
-    background-color: var(--btn-color);
+    padding: 15px 25px 15px 25px;
+
+}
+#book-creation :nth-child(2n) {
+    /* Add space to every label + input pare */
+    margin-bottom: 15px;
+}
+#book-creation input[type="text"] {
+    /* Styling the textboxes */
+    padding: 7px;
+    border-radius: 7px;
+}
+#book-creation div {
+    display: flex;
+    column-gap: 8px;
+}
+#book-creation input[type="checkbox"] {
+    width: 1.3em;
+    height: 1.3em;
+}
+#book-creation input[type="submit"] {
+    background-color: var(--btn-nav);
+    border-radius: 8px;
+    align-self: flex-end;
+    padding: 8px 15px 8px 15px;
 }
 
 /* Mobile screen */

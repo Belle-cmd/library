@@ -37,8 +37,11 @@
             <p class="card-author">Author McWriter</p>
         </div>
     </main>
-    <div id="book-creation-wrapper">
-        <button class="close-window"></button>
+    <div class="book-creation-wrapper">
+        <div class="popup-header">
+            <p>Add new book</p>
+            <button class="close-window"></button>
+        </div>
         <form action="" method="post" id="book-creation">
             <label for="title">Title</label>
             <input type="text" name="title" id="newbook-title" required>
@@ -46,8 +49,10 @@
             <label for="author">Author</label>
             <input type="text" name="author" id="newbook-author" required>
 
-            <label for="bookstatus">Not read</label>
-            <input type="checkbox" name="bookstatus" id="newbook-status">
+            <div>
+                <label for="bookstatus">Not read</label>
+                <input type="checkbox" name="bookstatus" id="newbook-status">
+            </div>
             <input type="submit"></input>
         </form>
     </div>
