@@ -9,6 +9,7 @@ const newBookSubmitBtn = document.getElementById("book-creation");
 const mainElement = document.getElementsByTagName("main")[0];
 let allCloseElements;  // store all close button of each card
 let allEditElements;  // store all edit button of each card
+let allReadElements; // store all eye button of each card
 
 
 
@@ -82,32 +83,69 @@ function drawCards() {
     });
 
     // Attach event listeners to each card drawn
+
     allCloseElements = document.querySelectorAll(".card-close");
     allCloseElements.forEach(btn => {
         btn.addEventListener("click", () => {
             // Retrieves the title of the book based on html element order
-            const title = btn.parentElement.parentElement.nextElementSibling; 
-            removeBookFromLibrary(title.textContent);
+            const title = btn.parentElement.parentElement.nextElementSibling.textContent; 
+            removeBookFromLibrary(findBookInLibrary(title));
             drawCards();  // only gets triggered when a button is clicked
         });
     });
+
+    allReadElements = document.querySelectorAll(".card-status");
+    allReadElements.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const title = btn.parentElement.parentElement.querySelector(".card-title").textContent; 
+            if (btn.classList.contains("complete")) {
+                btn.classList.remove("complete");
+                btn.classList.add("incomplete");                
+            } else {
+                btn.classList.remove("incomplete");
+                btn.classList.add("complete");
+            }
+            editStatusInLibrary(findBookInLibrary(title));
+            console.log(library);
+        });
+    });
+}
+
+/**
+ * Helper function to find a particular book in the library, based on a book title
+ * @param {*} title string book title
+ * @returns Book object
+ */
+function findBookInLibrary(title) {
+    return library.find(item => item.title == title);
 }
 
 /**
  * Remove book from library[], based on book title
  * @param {*} title string book title
  */
-function removeBookFromLibrary(title) {
-    const checker = library.find(item => item.title == title);
-
-    if (typeof checker !== "undefined") {
-        const target = library.indexOf(checker);
+function removeBookFromLibrary(book) {
+    if (typeof book !== "undefined") {
+        const target = library.indexOf(book);
         library.splice(target, 1);
     } else {
-        console.log("Can't find specified book " + title + " to delete");
+        console.log("Can't find specified book " + book.title + " to delete");
     }
 
 }
+
+/**
+ * Edit book reading status based on titile
+ * @param {*} title string book title
+ */
+function editStatusInLibrary(book) {
+    if (typeof book !== "undefined") {
+        book.status ? book.status = false : book.status = true;
+    } else {
+        console.log("Can't find specified book " + book.title + " to edit reading status");
+    }
+}
+
 
 function editBookInLibrary() {}
 
