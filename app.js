@@ -1,26 +1,21 @@
 'use strict';
 
-
-
 // Retrieve elements form html document and attach functions
 const newBookwindow = document.getElementById("book-creation-wrapper");
 const addBookBtn = document.getElementById("add-btn");
 const addBookCloseBtn = document.getElementById("newbook-close");
 const newBookSubmitBtn = document.getElementById("book-creation");
+
 const mainElement = document.getElementsByTagName("main")[0];
+let allCloseElements;  // store all close button of each card
+let allEditElements;  // store all edit button of each card
 
-
-
-// At start of webpage...
-document.addEventListener("DOMContentLoaded", function() {
-    cardMode();
-  });
 
 
 // Objects in the webpage
-const library = [];  // store all books regardless of their list and status
-const completedList = [];  // store finished books
-const incompleteList = [];  // store books not yet finished
+let library = [];  // store all books regardless of their list and status
+let completedList = [];  // store finished books
+let incompleteList = [];  // store books not yet finished
 
 function Book(title, author, status) {
     this.title = title;
@@ -36,13 +31,24 @@ const book4 = new Book("The Power of Habit", "Charles Duhigg", true);
 const book5 = new Book("Dracula", "Bram Stoker", true);
 const book6 = new Book("C Programming Language", "Kerninghan Ritchie", false);
 library.push(book1, book2, book3, book4, book5, book6);
-console.log(library);
+
+
+
+// populate main now that library[] has items
+drawCards();  
 
 
 
 // Functions executed in web page
 
-function cardMode() {
+/**
+ * Function that redraws all the book cards based on the items inside library[].
+ * In this function, event listeners with their respective code are attached to 
+ * the buttons within each book card.
+ */
+function drawCards() {
+    mainElement.replaceChildren();  // remove all of main's children
+
     library.forEach(item => {
         const markup = `
             <div class="card-img">
@@ -76,7 +82,37 @@ function cardMode() {
 
         mainElement.appendChild(newChild);
     });
+
+    // Attach event listeners to each card drawn
+    allCloseElements = document.querySelectorAll(".card-close");
+    allCloseElements.forEach(btn => {
+        btn.addEventListener("click", () => {
+            // Retrieves the title of the book based on html element order
+            const title = btn.parentElement.parentElement.nextElementSibling; 
+            removeBookFromLibrary(title.textContent);
+            drawCards();  // only gets triggered when a button is clicked
+        });
+    });
 }
+
+/**
+ * Remove book from library[], based on book title
+ * @param {*} title string book title
+ */
+function removeBookFromLibrary(title) {
+    const checker = library.find(item => item.title == title);
+
+    if (typeof checker !== "undefined") {
+        const target = library.indexOf(checker);
+        library.splice(target, 1);
+    } else {
+        console.log("Can't find specified book " + title + " to delete");
+    }
+
+}
+
+function editBookInLibrary() {}
+
 
 function listMode() {}
 
@@ -104,13 +140,9 @@ function addBookToLibrary(title, author, status) {
     }
 }
 
-function removeBookFromLibrary() {}
-
-function editBookInLibrary() {}
 
 
-
-// Event listeners triggered by users
+// Event listeners not in book cards triggered by users
 
 addBookBtn.addEventListener("click", () => {
     // Enable new-book-window to appear and disappear at button press
@@ -135,8 +167,6 @@ newBookSubmitBtn.addEventListener("submit", (event) => {
     const status = document.getElementById("newbook-status").checked;
 
     addBookToLibrary(title, author, status);
-
-    mainElement.replaceChildren();  // remove all of main's children
-    cardMode();
+    drawCards();
     newBookwindow.style.display = "none";  // hide the book creation window
 });
