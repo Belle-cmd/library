@@ -153,7 +153,7 @@ main {
 
 
 /* Style for adding new books/editing existing books */
-#book-creation-wrapper {
+#book-creation-wrapper, #book-editing-wrapper {
     display: none;  /* hide window by default */
     
     background-color: var(--btn-color);
@@ -181,7 +181,7 @@ main {
     background-size: cover;
     border-radius: 8px;
 }
-#book-creation {
+form {
     font-size: 1.2em;
 
     display: flex;
@@ -189,24 +189,24 @@ main {
     padding: 15px 25px 15px 25px;
 
 }
-#book-creation :nth-child(2n) {
+form :nth-child(2n) {
     /* Add space to every label + input pare */
     margin-bottom: 15px;
 }
-#book-creation input[type="text"] {
+form input[type="text"] {
     /* Styling the textboxes */
     padding: 7px;
     border-radius: 7px;
 }
-#book-creation div {
+form div {
     display: flex;
     column-gap: 8px;
 }
-#book-creation input[type="checkbox"] {
+form input[type="checkbox"] {
     width: 1.3em;
     height: 1.3em;
 }
-#book-creation input[type="submit"] {
+form input[type="submit"] {
     background-color: var(--btn-nav);
     border-radius: 8px;
     align-self: flex-end;

@@ -6,6 +6,9 @@ const addBookBtn = document.getElementById("add-btn");
 const addBookCloseBtn = document.getElementById("newbook-close");
 const newBookSubmitBtn = document.getElementById("book-creation");
 
+const editBookWindow = document.getElementById("book-editing-wrapper");
+const bookCloseBtn = document.getElementById("book-close");
+
 const mainElement = document.getElementsByTagName("main")[0];
 let allCloseElements;  // store all close button of each card
 let allEditElements;  // store all edit button of each card
@@ -109,6 +112,18 @@ function drawCards() {
             console.log(library);
         });
     });
+
+    allEditElements = document.querySelectorAll(".card-edit");
+    allEditElements.forEach(btn => {
+        btn.addEventListener("click", () => {
+            console.log(editBookWindow.style.display);
+            if (editBookWindow.style.display === "none") {
+                editBookWindow.style.display = "block";
+              } else {
+                editBookWindow.style.display = "none"
+              }
+        });
+    });
 }
 
 /**
@@ -201,4 +216,10 @@ newBookSubmitBtn.addEventListener("submit", (event) => {
     addBookToLibrary(title, author, status);
     drawCards();
     newBookwindow.style.display = "none";  // hide the book creation window
+});
+
+bookCloseBtn.addEventListener("click", () => {
+    if (editBookWindow.style.display !== "none") {
+        editBookWindow.style.display = "none";
+      }
 });

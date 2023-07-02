@@ -46,7 +46,23 @@
             <input type="submit"></input>
         </form>
     </div>
-    <div id="book-editing"></div>
+    <div id="book-editing-wrapper">
+        <div class="popup-header">
+            <p>Edit an existing book</p>
+            <button id="book-close" class="close-window"></button>
+        </div>
+        <form action="" method="post" id="book-editing">
+            <label for="book-title">New Title</label>
+            <input type="text" id="book-title">
+            <label for="book-author">New Author</label>
+            <input type="text" id="book-author">
+            <div>
+                <label for="book-status">Not Read</label>
+                <input type="checkbox" id="book-status">
+            </div>
+            <input type="submit">
+        </form>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
