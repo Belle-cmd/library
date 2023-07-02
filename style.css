@@ -147,9 +147,10 @@ main {
 
 
 /* Style for adding new books/editing existing books */
-.book-creation-wrapper {
+#book-creation-wrapper {
+    display: none;  /* hide window by default */
+    
     background-color: var(--btn-color);
-
     font-size: 1em;
     position: absolute;
     top: 30%;
@@ -157,7 +158,6 @@ main {
     width: 40vw;
     height: auto;
     border-radius: 15px;
-
 }
 .popup-header {
     display: flex;

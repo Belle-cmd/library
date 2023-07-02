@@ -57,14 +57,25 @@ function editBookInLibrary() {}
 
 
 // Retrieve elements form html document and attach functions
+const newBookwindow = document.getElementById("book-creation-wrapper");
 const addBookBtn = document.getElementById("add-btn");
+const addBookCloseBtn = document.getElementById("newbook-close");
 const newBookSubmitBtn = document.getElementById("book-creation");
 
-// addBookBtn.addEventListener("click", () => {
-//     // activate html element containing the form to input book details
-    
-
-// });
+addBookBtn.addEventListener("click", () => {
+    // Enable new-book-window to appear and disappear at button press
+    if (newBookwindow.style.display === "none") {
+        newBookwindow.style.display = "block";
+      } else {
+        newBookwindow.style.display = "none";
+      }
+});
+addBookCloseBtn.addEventListener("click", () => {
+    // Enable new-book-window to disappear at button press
+    if (newBookwindow.style.display !== "none") {
+        newBookwindow.style.display = "none";
+      }
+});
 newBookSubmitBtn.addEventListener("submit", (event) => {
     event.preventDefault();  // prevents page refresh at form submit
 
