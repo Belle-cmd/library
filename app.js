@@ -122,7 +122,7 @@ function findBookInLibrary(title) {
 
 /**
  * Remove book from library[], based on book title
- * @param {*} title string book title
+ * @param {*} book Book object
  */
 function removeBookFromLibrary(book) {
     if (typeof book !== "undefined") {
@@ -136,7 +136,7 @@ function removeBookFromLibrary(book) {
 
 /**
  * Edit book reading status based on titile
- * @param {*} title string book title
+ * @param {*} book Book object
  */
 function editStatusInLibrary(book) {
     if (typeof book !== "undefined") {
@@ -155,9 +155,9 @@ function listMode() {}
 /**
  * addNewBookToLibrary() checks if the book being added already exists in the library or not. If so,
  * do nothing. Otherwise, add it to the library .
- * @param {*} title     title of the book
- * @param {*} author    author of the book
- * @param {*} status    true = completed reading, false = not yet finished
+ * @param {*} title     string title of the book
+ * @param {*} author    string author of the book
+ * @param {*} status    boolean true = completed reading, false = not yet finished
  */
 function addBookToLibrary(title, author, status) {
     // checks if the book being created already exists in library
