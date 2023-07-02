@@ -161,8 +161,7 @@ function listMode() {}
  */
 function addBookToLibrary(title, author, status) {
     // checks if the book being created already exists in library
-    const checker = library.find(item => item.title === title && item.author === author);
-    
+    const checker = findBookInLibrary(title);
     if (typeof checker === "undefined") {
         // the book doesn't exists in the library yet
         const newBook = new Book(title, author, status);
