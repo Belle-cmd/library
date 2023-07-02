@@ -13,9 +13,7 @@ let allEditElements;  // store all edit button of each card
 
 
 // Objects in the webpage
-let library = [];  // store all books regardless of their list and status
-let completedList = [];  // store finished books
-let incompleteList = [];  // store books not yet finished
+let library = [];  // store all books regardless of their reading status
 
 function Book(title, author, status) {
     this.title = title;
@@ -118,8 +116,7 @@ function listMode() {}
 
 /**
  * addNewBookToLibrary() checks if the book being added already exists in the library or not. If so,
- * do nothing. Otherwise, add it to the library and the list of completed/incomplete books based on
- * the status inputted by the user.
+ * do nothing. Otherwise, add it to the library .
  * @param {*} title     title of the book
  * @param {*} author    author of the book
  * @param {*} status    true = completed reading, false = not yet finished
@@ -132,8 +129,6 @@ function addBookToLibrary(title, author, status) {
         // the book doesn't exists in the library yet
         const newBook = new Book(title, author, status);
         library.push(newBook);
-        status ? completedList.push(newBook) : incompleteList.push(newBook);
-
         console.log("New book added");
     } else {
         console.log("Book already exists");
