@@ -36,8 +36,12 @@ library.push(book1, book2, book3, book4, book5, book6);
 
 
 
-// populate main now that library[] has items
-drawCards();  
+// IMPORTANT: has to be set to none so that individual book card's edit window and add-new-book window
+// can be shown (in drawCards()'s buttons and addBookBtn with event listener for opening the window)
+editBookWindow.style.display = "none";
+newBookwindow.style.display = "none";  
+
+drawCards();  // populate main now that library[] has items
 
 
 
@@ -100,7 +104,7 @@ function drawCards() {
     allReadElements = document.querySelectorAll(".card-status");
     allReadElements.forEach(btn => {
         btn.addEventListener("click", () => {
-            const title = btn.parentElement.parentElement.querySelector(".card-title").textContent; 
+            const title = btn.parentElement.parentElement.querySelector(".card-title").textContent;
             if (btn.classList.contains("complete")) {
                 btn.classList.remove("complete");
                 btn.classList.add("incomplete");                
@@ -116,11 +120,12 @@ function drawCards() {
     allEditElements = document.querySelectorAll(".card-edit");
     allEditElements.forEach(btn => {
         btn.addEventListener("click", () => {
-            console.log(editBookWindow.style.display);
             if (editBookWindow.style.display === "none") {
-                editBookWindow.style.display = "block";
-              } else {
-                editBookWindow.style.display = "none"
+                const booktitle = btn.parentElement.parentElement.nextElementSibling.textContent;
+                // put book title in the editing window
+                editBookWindow.querySelector(".editedbook").textContent = booktitle;
+
+                editBookWindow.style.display = "block";  // show the editing window to the screen
               }
         });
     });

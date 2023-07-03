@@ -8,6 +8,7 @@
 --book-complete: rgb(137, 206, 137);
 }
 
+
 body {
     margin: 0;
     display: flex;
@@ -18,11 +19,13 @@ body {
     position: relative;  /* for the book creation/editing forms */
 }
 
+
 nav img, button, p, input[type="submit"] {
     margin: 0;
     border: 0;
     padding: 0;
 }
+
 
 header {
     justify-content: center;
@@ -74,6 +77,7 @@ nav button:hover {
 .btn-group button:last-child {
     border-radius: 0px 10px 10px 0px;
 }
+
 
 main {
     padding: 30px;
@@ -169,9 +173,20 @@ main {
     display: flex;
     justify-content: space-between;
     font-size: 1.5em;
+    font-weight: 400;  /* Header title of pop up window */
     background-color: var(--btn-hover);
     padding: 10px 10px 10px 25px;
     border-radius: 15px 15px 0 0;
+}
+.popup-title {
+    display: flex;
+    flex-direction: column;
+}
+.popup-title:first-child {
+    font-weight: 400;  /* Header title of pop up window */
+}
+.editedbook {
+    font-size: 0.6em;  /* title of the book being edited */
 }
 .close-window {
     background-color: var(--btn-nav);
@@ -212,6 +227,7 @@ form input[type="submit"] {
     align-self: flex-end;
     padding: 8px 15px 8px 15px;
 }
+
 
 /* Mobile screen */
 @media only screen and (max-width: 500px) {
