@@ -8,6 +8,8 @@ const newBookSubmitBtn = document.getElementById("book-creation");
 
 const editBookWindow = document.getElementById("book-editing-wrapper");
 const bookCloseBtn = document.getElementById("book-close");
+const editBookSubmitBtn = document.getElementById("book-editing");
+const checkboxBtn = document.getElementById("book-status");
 
 const mainElement = document.getElementsByTagName("main")[0];
 let allCloseElements;  // store all close button of each card
@@ -122,10 +124,20 @@ function drawCards() {
         btn.addEventListener("click", () => {
             if (editBookWindow.style.display === "none") {
                 const booktitle = btn.parentElement.parentElement.nextElementSibling.textContent;
-                // put book title in the editing window
+                // put book's title in the editing window
                 editBookWindow.querySelector(".editedbook").textContent = booktitle;
+                
+                editBookWindow.style.display = "block";  // show edit window to screen
 
-                editBookWindow.style.display = "block";  // show the editing window to the screen
+                // change checkbox text and value in edit window to match the book being edited
+                const bookObj = findBookInLibrary(booktitle);
+                editBookWindow.querySelector("#book-status").checked = bookObj.status;
+                const checkboxText = editBookWindow.querySelector("#book-status").previousElementSibling;
+                if (bookObj.status) {
+                    checkboxText.textContent = "Completed";
+                } else {
+                    checkboxText.textContent = "Incomplete";
+                }
               }
         });
     });
@@ -166,8 +178,27 @@ function editStatusInLibrary(book) {
     }
 }
 
+/**
+ * Change a specified book from library[] into its new values from user input
+ * @param {*} book          book object
+ * @param {*} newTitle      string new title of the book
+ * @param {*} newAuthor     string new author of the book
+ * @param {*} newStatus     boolean new book reading status (true = complete, false = incomplete)
+ */
+function editBookInLibrary(book, newTitle, newAuthor, newStatus) {
+    if (typeof book === "undefined") {
+        console.log("Inputted book doesn't exist in the library");
+        return;  // exit the function
+    }
 
-function editBookInLibrary() {}
+    if (newTitle !== "") {
+        book.title = newTitle;
+    }
+    if (newAuthor !== "") {
+        book.author = newAuthor;
+    }
+    book.status = newStatus;
+}
 
 
 function listMode() {}
@@ -222,9 +253,39 @@ newBookSubmitBtn.addEventListener("submit", (event) => {
     drawCards();
     newBookwindow.style.display = "none";  // hide the book creation window
 });
-
 bookCloseBtn.addEventListener("click", () => {
     if (editBookWindow.style.display !== "none") {
         editBookWindow.style.display = "none";
       }
+});
+checkboxBtn.addEventListener("change", () => {
+    // when the user clicks on the edit window's checkbox, change text
+    if (checkboxBtn.checked) {
+        // Checkbox value changes from unchecked to checked
+        checkboxBtn.previousElementSibling.textContent = "Completed";
+        console.log("CHECKED");
+    } else {
+        // Checkbox value changes from checked to unchecked
+        checkboxBtn.previousElementSibling.textContent = "Incomplete";
+        console.log("NOT CHECKED");
+    }
+});
+editBookSubmitBtn.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const newTitle = editBookWindow.querySelector("#book-title").value;
+    const newAuthor = editBookWindow.querySelector("#book-author").value;
+    const newStatus = editBookWindow.querySelector("#book-status").checked;
+
+    // retrieve book title from edit window header
+    const oldtitle = editBookWindow.querySelector(".editedbook").textContent;
+    const oldbook = findBookInLibrary(oldtitle);
+    console.log(oldbook);
+    editBookInLibrary(oldbook, newTitle, newAuthor, newStatus);
+    drawCards();
+    
+    // IMPORTANT: remove the old book title in edit window header to indicate which book is being edited
+    editBookWindow.querySelector(".editedbook").textContent = "";
+
+    editBookWindow.style.display = "none";  // hides the edit window after submit
 });
