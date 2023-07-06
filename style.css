@@ -20,7 +20,7 @@ body {
 }
 
 
-nav img, button, p, input[type="submit"] {
+nav button, p, input[type="submit"] {
     margin: 0;
     border: 0;
     padding: 0;
@@ -44,6 +44,7 @@ header h1 {
     margin: 2vh 0;
 }
 
+
 hr {
     width: 50vw;
     margin-top: 0;
@@ -54,14 +55,12 @@ nav {
     justify-content: center;
     gap: 2vw;
 }
-nav img {
-    width: auto;
-    height: 4vh;
-    padding-left: 3px;
-    padding-right: 3px;
-}
 nav button {
-    padding-top: 3px;  /* centers image inside button */
+    width: clamp(40px, 2.3em, 50px);
+    height: clamp(40px, 2.3em, 50px);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 3px;
     background-color: var(--btn-color);
     border-radius: 10px 10px 10px 10px;
 }
@@ -70,6 +69,21 @@ nav button:hover {
 }
 .btn-group {
     display: flex;
+}
+#listmode {
+    background-image: url("/images/list.svg");
+}
+#cardmode {
+    background-image: url("/images/card.svg");
+}
+#darkmode {
+    background-image: url("/images/moon.svg");
+}
+#lightmode {
+    background-image: url("/images/sun.svg");
+}
+#add-btn {
+    background-image: url("/images/add-box.svg");
 }
 .btn-group button:first-child {
     border-radius: 10px 0px 0px 10px;
