@@ -11,6 +11,9 @@ const bookCloseBtn = document.getElementById("book-close");
 const editBookSubmitBtn = document.getElementById("book-editing");
 const checkboxBtn = document.getElementById("book-status");
 
+const tableBtn = document.getElementById("tablemode");
+const cardBtn = document.getElementById("cardmode");
+
 const mainElement = document.getElementsByTagName("main")[0];
 let allCloseElements;  // store all close button of each card
 let allEditElements;  // store all edit button of each card
@@ -20,6 +23,8 @@ let allReadElements; // store all eye button of each card
 
 // Objects in the webpage
 let library = [];  // store all books regardless of their reading status
+let tableCount = 0;
+let cardCount = 0;
 
 function Book(title, author, status) {
     this.title = title;
@@ -39,22 +44,48 @@ library.push(book1, book2, book3, book4, book5, book6);
 
 
 // IMPORTANT: has to be set to none so that individual book card's edit window and add-new-book window
-// can be shown (in drawCards()'s buttons and addBookBtn with event listener for opening the window)
+// can be shown (in drawCard()'s buttons and addBookBtn with event listener for opening the window)
 editBookWindow.style.display = "none";
 newBookwindow.style.display = "none";  
 
-drawCards();  // populate main now that library[] has items
+// drawCard();  // populate main now that library[] has items
+drawTable();
 
 
 
 // Functions executed in web page
 
 /**
+ * 
+ */
+function drawTable() {
+    mainElement.replaceChildren();  // remove all of main's children
+
+    const table = document.createElement("table");
+    mainElement.appendChild(table);
+
+    library.forEach(item => {
+        const markup = `
+            <td class="card-title">${item.title}</td>
+            <td class="card-author">${item.author}</td>
+            <td><button class="tableBtnStatus"></button></td>
+            <td><button class="tableBtnClose"></button></td>
+        `;
+
+        const newRow = document.createElement("tr");
+        newRow.classList.add("listItem");
+        newRow.innerHTML = markup;
+    
+        table.appendChild(newRow);
+    });
+}
+
+/**
  * Function that redraws all the book cards based on the items inside library[].
  * In this function, event listeners with their respective code are attached to 
  * the buttons within each book card.
  */
-function drawCards() {
+function drawCard() {
     mainElement.replaceChildren();  // remove all of main's children
 
     library.forEach(item => {
@@ -99,7 +130,7 @@ function drawCards() {
             // Retrieves the title of the book based on html element order
             const title = btn.parentElement.parentElement.nextElementSibling.textContent; 
             removeBookFromLibrary(findBookInLibrary(title));
-            drawCards();  // only gets triggered when a button is clicked
+            drawCard();  // only gets triggered when a button is clicked
         });
     });
 
@@ -200,9 +231,6 @@ function editBookInLibrary(book, newTitle, newAuthor, newStatus) {
     book.status = newStatus;
 }
 
-
-function listMode() {}
-
 /**
  * addNewBookToLibrary() checks if the book being added already exists in the library or not. If so,
  * do nothing. Otherwise, add it to the library .
@@ -250,7 +278,7 @@ newBookSubmitBtn.addEventListener("submit", (event) => {
     const status = document.getElementById("newbook-status").checked;
 
     addBookToLibrary(title, author, status);
-    drawCards();
+    drawCard();
     newBookwindow.style.display = "none";  // hide the book creation window
 });
 bookCloseBtn.addEventListener("click", () => {
@@ -282,10 +310,22 @@ editBookSubmitBtn.addEventListener("submit", (event) => {
     const oldbook = findBookInLibrary(oldtitle);
     console.log(oldbook);
     editBookInLibrary(oldbook, newTitle, newAuthor, newStatus);
-    drawCards();
+    drawCard();
     
     // IMPORTANT: remove the old book title in edit window header to indicate which book is being edited
     editBookWindow.querySelector(".editedbook").textContent = "";
 
     editBookWindow.style.display = "none";  // hides the edit window after submit
+});
+tableBtn.addEventListener("click", () => {
+    tableCount = 1;
+    cardCount = 0;
+
+    console.log("list mode:\n cardCount = " + cardCount + " tableCount = " + tableCount);
+});
+cardBtn.addEventListener("click", () => {
+    cardCount = 1;
+    tableCount = 0;
+
+    console.log("card mode:\n cardCount = " + cardCount + " tableCount = " + tableCount);
 });

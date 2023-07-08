@@ -77,7 +77,7 @@ nav button:hover {
 .btn-group {
     display: flex;
 }
-#listmode {
+#tablemode {
     background-image: url("/images/list.svg");
 }
 #cardmode {
