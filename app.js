@@ -64,20 +64,35 @@ function drawTable() {
     const table = document.createElement("table");
     mainElement.appendChild(table);
 
+    // store header inside a thead tag
+    const newHead = document.createElement("thead");
+    newHead.innerHTML = `
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Reading Status</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+    `   ;
+    table.appendChild(newHead);
+
+    // store all data inside tbody
+    const tableBody = document.createElement("tbody");
     library.forEach(item => {
-        const markup = `
+        const newRow = document.createElement("tr");
+        newRow.innerHTML = `
             <td class="card-title">${item.title}</td>
             <td class="card-author">${item.author}</td>
             <td><button class="tableBtnStatus"></button></td>
             <td><button class="tableBtnClose"></button></td>
         `;
-
-        const newRow = document.createElement("tr");
-        newRow.classList.add("listItem");
-        newRow.innerHTML = markup;
     
-        table.appendChild(newRow);
+        tableBody.appendChild(newRow);
     });
+
+    // by this point, tbody is populated with all books in library
+    table.appendChild(tableBody);
 }
 
 /**
