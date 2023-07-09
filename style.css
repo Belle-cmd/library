@@ -1,8 +1,9 @@
 :root {
---body-color:  rgb(252, 247, 239);
---btn-color: rgb(250, 229, 216);
---btn-hover: rgb(233, 202, 181);
---btn-nav: rgb(167, 178, 197);
+--body-color:  rgb(253, 250, 245);
+--btn-nav-color: rgb(250, 229, 216);
+--btn-nav-header: rgb(233, 202, 181);
+--btn-color: rgb(174, 188, 214);
+--btn-hover: rgb(144, 165, 200);
 --book-cover:  rgb(210, 231, 235);
 --book-incomplete: rgb(244, 149, 149);
 --book-complete: rgb(137, 206, 137);
@@ -68,11 +69,11 @@ nav button {
     background-repeat: no-repeat;
     background-size: cover;
     padding: 3px;
-    background-color: var(--btn-color);
+    background-color: var(--btn-nav-color);
     border-radius: 10px 10px 10px 10px;
 }
 nav button:hover {
-    background-color: var(--btn-hover);
+    background-color: var(--btn-nav-header);
 }
 .btn-group {
     display: flex;
@@ -100,7 +101,7 @@ nav button:hover {
 }
 
 
-main {
+.main-card {
     padding: 30px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -153,14 +154,14 @@ main {
     gap: 3px;
 }
 .card-options button {
-    background-color: var(--btn-nav);
+    background-color: var(--btn-color);
     width: clamp(10px, 2em, 25px);
     height: clamp(10px, 2em, 25px);
     background-size: cover;
     border-radius: 6px;
 }
 .card-options button:hover {
-    background-color: var(--btn-hover);
+    background-color: var(--btn-nav-header);
 }
 .card-edit {
     background-image: url("/images/edit.svg");
@@ -181,7 +182,7 @@ main {
 #book-creation-wrapper, #book-editing-wrapper {
     display: none;  /* hide window by default */
     
-    background-color: var(--btn-color);
+    background-color: var(--btn-nav-color);
     font-size: 1em;
     position: absolute;
     top: 30%;
@@ -196,7 +197,7 @@ main {
     justify-content: space-between;
     font-size: 1.5em;
     font-weight: 400;  /* Header title of pop up window */
-    background-color: var(--btn-hover);
+    background-color: var(--btn-nav-header);
     padding: 10px 10px 10px 25px;
     border-radius: 15px 15px 0 0;
 }
@@ -211,7 +212,7 @@ main {
     font-size: 0.6em;  /* title of the book being edited */
 }
 .close-window {
-    background-color: var(--btn-nav);
+    background-color: var(--btn-color);
     background-image: url(/images/close.svg);
     width: clamp(20px, 1.8vw, 30px);
     height: clamp(20px, 1.8vw, 30px);
@@ -244,12 +245,56 @@ form input[type="checkbox"] {
     height: 1.3em;
 }
 form input[type="submit"] {
-    background-color: var(--btn-nav);
+    background-color: var(--btn-color);
     border-radius: 8px;
     align-self: flex-end;
     padding: 8px 15px 8px 15px;
 }
 
+
+/* Style for table */
+.main-table {
+    display: flex;
+    justify-content: center;
+}
+table {
+    padding: 0 1vw 0 1vw;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+th {
+    text-align: left;
+    font-size: 1.5rem;
+    padding: 2vh;
+    background-color: var(--btn-color);
+}
+td {
+    font-size: 1.3rem;
+    padding: 2vh 1.5vh 2vh 1.5vh;
+    border-top: 0.5px solid black;
+}
+td button {
+    width: clamp(35px, 2.3em, 50px);
+    height: clamp(35px, 2.3em, 50px);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 3px;
+    border: 1px solid black;
+    border-radius: 10px 10px 10px 10px;
+    background-color: var(--btn-color);
+}
+td button:hover {
+    background-color: var(--btn-hover) ;
+}
+.table-status {
+    background-image: url("/images/eye.svg");
+}
+.table-close {
+    background-image: url("/images/close.svg");
+}
+.table-edit {
+    background-image: url("/images/edit.svg");
+}
 
 /* Tablet screen */
 @media only screen and (min-width: 401px) and (max-width: 960px) {

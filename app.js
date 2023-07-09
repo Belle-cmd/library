@@ -70,7 +70,7 @@ function drawTable() {
         <tr>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
-            <th scope="col">Reading Status</th>
+            <th scope="col">Status</th>
             <th>&nbsp;</th>
             <th>&nbsp;</th>
         </tr>
@@ -82,10 +82,13 @@ function drawTable() {
     library.forEach(item => {
         const newRow = document.createElement("tr");
         newRow.innerHTML = `
-            <td class="card-title">${item.title}</td>
-            <td class="card-author">${item.author}</td>
-            <td><button class="tableBtnStatus"></button></td>
-            <td><button class="tableBtnClose"></button></td>
+            <td>${item.title}</td>
+            <td>${item.author}</td>
+            <td><button class="table-status"></button></td>
+            <td>
+                <button class="table-edit"></button>
+                <button class="table-close"></button>
+            </td>
         `;
     
         tableBody.appendChild(newRow);
@@ -336,11 +339,15 @@ tableBtn.addEventListener("click", () => {
     tableCount = 1;
     cardCount = 0;
 
+    mainElement.classList.remove("main-card");
+    mainElement.classList.add("main-table");
     console.log("list mode:\n cardCount = " + cardCount + " tableCount = " + tableCount);
 });
 cardBtn.addEventListener("click", () => {
     cardCount = 1;
     tableCount = 0;
 
+    mainElement.classList.remove("main-table");
+    mainElement.classList.add("main-card");
     console.log("card mode:\n cardCount = " + cardCount + " tableCount = " + tableCount);
 });
