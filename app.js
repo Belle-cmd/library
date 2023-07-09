@@ -48,15 +48,32 @@ library.push(book1, book2, book3, book4, book5, book6);
 editBookWindow.style.display = "none";
 newBookwindow.style.display = "none";  
 
-// drawCard();  // populate main now that library[] has items
-drawTable();
+// the default display mode is the card mode
+drawCard();  // populate main now that library[] has items
 
 
 
 // Functions executed in web page
 
 /**
- * 
+ * Switch between different display modes (card, table), depending on the user's choice
+ */
+function displayBooks() {
+    console.log("table count: " + tableCount);
+    console.log("card count: " + cardCount);
+    if (tableCount == 1) {
+        drawTable();
+        console.log("IN TABLE");
+    } else if (cardCount == 1) {
+        drawCard();
+        console.log("IN CARD");
+    }
+}
+
+/**
+ * Redraws all books from library[] into a table data inside a table.
+ * In this function, event listeners with their respective code are attached to 
+ * the buttons within each table row.
  */
 function drawTable() {
     mainElement.replaceChildren();  // remove all of main's children
@@ -148,7 +165,7 @@ function drawCard() {
             // Retrieves the title of the book based on html element order
             const title = btn.parentElement.parentElement.nextElementSibling.textContent; 
             removeBookFromLibrary(findBookInLibrary(title));
-            drawCard();  // only gets triggered when a button is clicked
+            displayBooks();  // only gets triggered when a button is clicked
         });
     });
 
@@ -296,7 +313,7 @@ newBookSubmitBtn.addEventListener("submit", (event) => {
     const status = document.getElementById("newbook-status").checked;
 
     addBookToLibrary(title, author, status);
-    drawCard();
+    displayBooks();
     newBookwindow.style.display = "none";  // hide the book creation window
 });
 bookCloseBtn.addEventListener("click", () => {
@@ -328,7 +345,7 @@ editBookSubmitBtn.addEventListener("submit", (event) => {
     const oldbook = findBookInLibrary(oldtitle);
     console.log(oldbook);
     editBookInLibrary(oldbook, newTitle, newAuthor, newStatus);
-    drawCard();
+    displayBooks();
     
     // IMPORTANT: remove the old book title in edit window header to indicate which book is being edited
     editBookWindow.querySelector(".editedbook").textContent = "";
@@ -339,15 +356,17 @@ tableBtn.addEventListener("click", () => {
     tableCount = 1;
     cardCount = 0;
 
-    mainElement.classList.remove("main-card");
-    mainElement.classList.add("main-table");
-    console.log("list mode:\n cardCount = " + cardCount + " tableCount = " + tableCount);
+    // mainElement.classList.remove("main-card");
+    // mainElement.classList.add("main-table");
+    displayBooks();
+    // console.log("list mode:\n cardCount = " + cardCount + " tableCount = " + tableCount);
 });
 cardBtn.addEventListener("click", () => {
     cardCount = 1;
     tableCount = 0;
 
-    mainElement.classList.remove("main-table");
-    mainElement.classList.add("main-card");
-    console.log("card mode:\n cardCount = " + cardCount + " tableCount = " + tableCount);
+    // mainElement.classList.remove("main-table");
+    // mainElement.classList.add("main-card");
+    displayBooks();
+    // console.log("card mode:\n cardCount = " + cardCount + " tableCount = " + tableCount);
 });
