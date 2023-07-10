@@ -175,6 +175,15 @@ function drawTable() {
         });
     });
 
+    const closeBtns = document.querySelectorAll(".table-close");
+    closeBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        // Retrieves the title of the book based on html element order
+        const title =  btn.parentElement.parentElement.firstElementChild.textContent;
+        removeBookFromLibrary(findBookInLibrary(title));
+        displayBooks();  // only gets triggered when a button is clicked
+    });
+});
 }
 
 /**
