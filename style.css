@@ -281,10 +281,6 @@ td button {
     padding: 3px;
     border: 1px solid black;
     border-radius: 10px 10px 10px 10px;
-    background-color: var(--btn-color);
-}
-td button:hover {
-    background-color: var(--btn-hover) ;
 }
 .table-status {
     background-image: url("/images/eye.svg");

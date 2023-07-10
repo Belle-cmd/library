@@ -63,17 +63,17 @@ cardCount = 1;  // set to 1 since we're at card mode
  * Sets the book displayed in webpage to with a style for a complete/incomplete book, based on
  * the matching book object's status in library[]
  * @param {*} book book object
- * @param {*} cardElement HTML element of the card status button
+ * @param {*} cardElement HTML element of the status button
  */
-function setBookStatus(book, cardElement) {
+function setBookStatus(book, statusElement) {
     if (book.status) {
         // book finished reading
-        cardElement.classList.add("complete");
-        cardElement.classList.remove("incomplete");
+        statusElement.classList.add("complete");
+        statusElement.classList.remove("incomplete");
     } else {
         //  book not finished reading
-        cardElement.classList.remove("complete");
-        cardElement.classList.add("incomplete");
+        statusElement.classList.remove("complete");
+        statusElement.classList.add("incomplete");
     }
 }
 
@@ -134,6 +134,24 @@ function drawTable() {
 
     // by this point, tbody is populated with all books in library
     table.appendChild(tableBody);
+
+    const statusBtns = document.querySelectorAll(".table-status");
+    statusBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            console.log(btn);
+            if (btn.classList.contains("complete")) {
+                console.log("COMPLETE EXIST")
+                btn.classList.remove("complete");
+                btn.classList.add("incomplete");                
+            } else {
+                console.log("COMPLETE DOESN'T EXIST")
+                btn.classList.remove("incomplete");
+                btn.classList.add("complete");
+            }
+            const title = btn.parentElement.parentElement.firstElementChild.textContent
+            editStatusInLibrary(findBookInLibrary(title));
+        });
+    });
 }
 
 /**
