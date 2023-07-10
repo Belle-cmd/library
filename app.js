@@ -107,10 +107,21 @@ function setBookEventListeners(allCloseElements, allReadElements, allEditElement
 }
 
 /**
- * Set all of a book's html reading status button to match the book's reading status data in library[]
+ * Sets the book displayed in webpage to with a style for a complete/incomplete book, based on
+ * the matching book object's status in library[]
+ * @param {*} book book object
+ * @param {*} cardElement HTML element of the card status button
  */
-function setBookStatus(bookStatusElem) {
-
+function setBookStatus(book, cardElement) {
+    if (book.status) {
+        // book finished reading
+        cardElement.classList.add("complete");
+        cardElement.classList.remove("incomplete");
+    } else {
+        //  book not finished reading
+        cardElement.classList.remove("complete");
+        cardElement.classList.add("incomplete");
+    }
 }
 
 /**
@@ -201,9 +212,9 @@ function drawCard() {
 
         // retrieve the button with the card-status class and add the classes that change
         // its button's color based on the user's reading progress (complete/incomplete)
-        const cardStatusBtn  = newChild.querySelector(".card-status");
-        setBookStatus(cardStatusBtn);
-        
+        const cardStatusElem = newChild.querySelector(".card-status");
+        setBookStatus(item, cardStatusElem);
+
         mainElement.appendChild(newChild);
     });
 
