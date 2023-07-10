@@ -140,11 +140,9 @@ function drawTable() {
         btn.addEventListener("click", () => {
             console.log(btn);
             if (btn.classList.contains("complete")) {
-                console.log("COMPLETE EXIST")
                 btn.classList.remove("complete");
                 btn.classList.add("incomplete");                
             } else {
-                console.log("COMPLETE DOESN'T EXIST")
                 btn.classList.remove("incomplete");
                 btn.classList.add("complete");
             }

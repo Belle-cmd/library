@@ -282,6 +282,16 @@ td button {
     border: 1px solid black;
     border-radius: 10px 10px 10px 10px;
 }
+.table-edit, .table-close {
+    /* 
+        Add color to table's close and edit button, excluding status button
+        since javascript sets its color based on books reading status 
+    */
+    background-color: var(--btn-color);
+}
+.table-edit:hover, .table-close:hover {
+    background-color: var(--btn-hover);
+}
 .table-status {
     background-image: url("/images/eye.svg");
 }
