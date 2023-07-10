@@ -146,10 +146,35 @@ function drawTable() {
                 btn.classList.remove("incomplete");
                 btn.classList.add("complete");
             }
-            const title = btn.parentElement.parentElement.firstElementChild.textContent
+            const title = btn.parentElement.parentElement.firstElementChild.textContent;
             editStatusInLibrary(findBookInLibrary(title));
         });
     });
+
+    const editBtns = document.querySelectorAll(".table-edit");
+    editBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            if (editBookWindow.style.display === "none") {
+                const booktitle = btn.parentElement.parentElement.firstElementChild.textContent;
+
+                // put book's title in the editing window
+                editBookWindow.querySelector(".editedbook").textContent = booktitle;
+                
+                editBookWindow.style.display = "block";  // show edit window to screen
+
+                // change checkbox text and value in edit window to match the book being edited
+                const bookObj = findBookInLibrary(booktitle);
+                editBookWindow.querySelector("#book-status").checked = bookObj.status;
+                const checkboxText = editBookWindow.querySelector("#book-status").previousElementSibling;
+                if (bookObj.status) {
+                    checkboxText.textContent = "Completed";
+                } else {
+                    checkboxText.textContent = "Incomplete";
+                }
+              }
+        });
+    });
+
 }
 
 /**
