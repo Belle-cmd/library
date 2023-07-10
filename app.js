@@ -106,7 +106,10 @@ function setBookEventListeners(allCloseElements, allReadElements, allEditElement
     });
 }
 
-function setBookStatus() {
+/**
+ * Set all of a book's html reading status button to match the book's reading status data in library[]
+ */
+function setBookStatus(bookStatusElem) {
 
 }
 
@@ -198,17 +201,9 @@ function drawCard() {
 
         // retrieve the button with the card-status class and add the classes that change
         // its button's color based on the user's reading progress (complete/incomplete)
-        const cardStatusElem = newChild.querySelector(".card-status");
-        if (item.status) {
-            // book finished reading
-            cardStatusElem.classList.add("complete");
-            cardStatusElem.classList.remove("incomplete");
-        } else {
-            //  book not finished reading
-            cardStatusElem.classList.remove("complete");
-            cardStatusElem.classList.add("incomplete");
-        }
-
+        const cardStatusBtn  = newChild.querySelector(".card-status");
+        setBookStatus(cardStatusBtn);
+        
         mainElement.appendChild(newChild);
     });
 
@@ -216,8 +211,6 @@ function drawCard() {
      const statusBtns= document.querySelectorAll(".card-status");
      const editBtns = document.querySelectorAll(".card-edit");
      setBookEventListeners(closeBtns, statusBtns, editBtns);
-
-
 }
 
 /**
@@ -358,8 +351,10 @@ editBookSubmitBtn.addEventListener("submit", (event) => {
     editBookInLibrary(oldbook, newTitle, newAuthor, newStatus);
     displayBooks();
     
-    // IMPORTANT: remove the old book title in edit window header to indicate which book is being edited
+    // IMPORTANT: needed changes to edit window and its input elements to prepare for new data
     editBookWindow.querySelector(".editedbook").textContent = "";
+    editBookWindow.querySelector("#book-title").value = "";
+    editBookWindow.querySelector("#book-author").value = "";
 
     editBookWindow.style.display = "none";  // hides the edit window after submit
 });
