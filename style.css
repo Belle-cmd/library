@@ -84,12 +84,6 @@ nav button:hover {
 #cardmode {
     background-image: url("/images/card.svg");
 }
-#darkmode {
-    background-image: url("/images/moon.svg");
-}
-#lightmode {
-    background-image: url("/images/sun.svg");
-}
 #add-btn {
     background-image: url("/images/add-box.svg");
 }
