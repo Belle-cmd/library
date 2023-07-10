@@ -128,14 +128,10 @@ function setBookStatus(book, cardElement) {
  * Switch between different display modes (card, table), depending on the user's choice
  */
 function displayBooks() {
-    console.log("table count: " + tableCount);
-    console.log("card count: " + cardCount);
     if (tableCount == 1) {
         drawTable();
-        console.log("IN TABLE");
     } else if (cardCount == 1) {
         drawCard();
-        console.log("IN CARD");
     }
 }
 
@@ -176,7 +172,10 @@ function drawTable() {
                 <button class="table-close"></button>
             </td>
         `;
-    
+
+        const tableStatusElem = newRow.querySelector(".table-status");
+        setBookStatus(item, tableStatusElem);
+
         tableBody.appendChild(newRow);
     });
 
