@@ -1,24 +1,26 @@
 # library
 An online record of all the books a user has read and books they plan to read, made in vanilla JavaScript, HTML, and CSS. 
 
+Live preview: [link](https://belle-cmd.github.io/library/)
 
-###Features
+### Features
 - has 2 display modes: table mode and card mode, which can be toggled at the navbar's respective icons
+    - card mode and table mode resizes at viewport change
 - Edit title, author, and reading status of existing books
 - Delete existing books
 - Create new books
 - Change book status at button press without toggling the edit window
 - Respective makeshift-window for editing and creating new books
+- Navbar sticks to the web page
 
 
-###Future Plans
+### Future Plans
 Each book image in the card mode is a placeholder for book covers. I plan to implement in the future the ff:
 - Use book API for book covers, titles, and authors
 - Add a database to maintain user data
 - Add a sorting feature to book titles, authors, and reading status (complete/incomplete books)
 
 
-Live preview: [link](https://belle-cmd.github.io/library/)
 
 
 
