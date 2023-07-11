@@ -33,13 +33,14 @@ function Book(title, author, status) {
 }
 
 // Populate library with dummy books
-const book1 = new Book("Feeling Good", "David D. Burns", false);
-const book3 = new Book("Frankenstein", "Mary Shelley", true);
-const book2 = new Book("The Picture of Dorian Gray", "Oscar Wilde", false);
-const book4 = new Book("The Power of Habit", "Charles Duhigg", true);
-const book5 = new Book("Dracula", "Bram Stoker", true);
-const book6 = new Book("C Programming Language", "Kerninghan Ritchie", false);
-library.push(book1, book2, book3, book4, book5, book6);
+library.push(new Book("Feeling Good", "David D. Burns", false));
+library.push(new Book("Frankenstein", "Mary Shelley", true));
+library.push(new Book("The Picture of Dorian Gray", "Oscar Wilde", false));
+library.push(new Book("C Programming Language", "Kerninghan Ritchie", false));
+library.push(new Book("The Power of Habit", "Charles Duhigg", true));
+library.push(new Book("Dracula", "Bram Stoker", true));
+library.push(new Book("Animal Farm", "George Orwell", true));
+library.push(new Book("The Great Gatsby", "F. Scott Fitzgerald", true));
 
 
 
@@ -178,7 +179,6 @@ function drawTable() {
             <th scope="col">Title</th>
             <th scope="col">Author</th>
             <th scope="col">Status</th>
-            <th>&nbsp;</th>
             <th>&nbsp;</th>
         </tr>
     `   ;
@@ -403,15 +403,15 @@ tableBtn.addEventListener("click", () => {
     tableCount = 1;
     cardCount = 0;
 
-    // mainElement.classList.remove("main-card");
-    // mainElement.classList.add("main-table");
+    mainElement.classList.remove("main-card");
+    mainElement.classList.add("main-table");
     displayBooks();
 });
 cardBtn.addEventListener("click", () => {
     cardCount = 1;
     tableCount = 0;
 
-    // mainElement.classList.remove("main-table");
-    // mainElement.classList.add("main-card");
+    mainElement.classList.remove("main-table");
+    mainElement.classList.add("main-card");
     displayBooks();
 });
