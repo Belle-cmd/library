@@ -86,13 +86,13 @@ nav button:hover {
     display: flex;
 }
 #tablemode {
-    background-image: url("/images/list.svg");
+    background-image: url("/images/table.png");
 }
 #cardmode {
-    background-image: url("/images/card.svg");
+    background-image: url("/images/card.png");
 }
 #add-btn {
-    background-image: url("/images/add-box.svg");
+    background-image: url("/images/add-box.png");
 }
 .btn-group button:first-child {
     border-radius: 10px 0px 0px 10px;
@@ -132,7 +132,6 @@ nav button:hover {
 }
 .card-status {
     position: absolute;
-    background-image: url("/images/eye.svg");
     background-size: cover;
     left: 0;
     width: clamp(10px, 2em, 35px);
@@ -142,10 +141,12 @@ nav button:hover {
 .incomplete {
     /* Changes the color of the reading status to red */
     background-color: var(--book-incomplete);
+    background-image: url("/images/eyeclose.png");
 }
 .complete {
     /* Changes the color of the reading status to green */
     background-color: var(--book-complete);
+    background-image: url("/images/eye.png");
 }
 .card-options {
     position: absolute;
@@ -165,10 +166,10 @@ nav button:hover {
     background-color: var(--btn-nav-header);
 }
 .card-edit {
-    background-image: url("/images/edit.svg");
+    background-image: url("/images/edit.png");
 }
 .card-close {
-    background-image: url("/images/close.svg");
+    background-image: url("/images/close.png");
 }
 .card-title {
     margin-top: 10px;
@@ -214,7 +215,7 @@ nav button:hover {
 }
 .close-window {
     background-color: var(--btn-color);
-    background-image: url(/images/close.svg);
+    background-image: url(/images/close.png);
     width: clamp(20px, 1.8vw, 30px);
     height: clamp(20px, 1.8vw, 30px);
     background-size: cover;
@@ -316,13 +317,13 @@ td button {
     background-color: var(--btn-hover);
 }
 .table-status {
-    background-image: url("/images/eye.svg");
+    background-image: url("/images/eye.png");
 }
 .table-close {
-    background-image: url("/images/close.svg");
+    background-image: url("/images/close.png");
 }
 .table-edit {
-    background-image: url("/images/edit.svg");
+    background-image: url("/images/edit.png");
 }
 
 /* Tablet screen */

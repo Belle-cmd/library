@@ -229,7 +229,7 @@ function drawCard() {
                     <button class="card-close"></button>
                 </div>
                 <button class="card-status"></button>
-                <img src="/images/default-book.svg" alt="">
+                <img src="/images/book.png" alt="">
             </div>
             <p class="card-title">${item.title}</p>
             <p class="card-author">${item.author}</p>
