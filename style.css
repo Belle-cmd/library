@@ -289,9 +289,6 @@ tr:not(:first-child) {
     /* Place top line border on each table row */
     border-top: 0.5px solid rgb(197, 193, 193);
 }
-tr:last-child td:first-child {
-    /* border-radius: 0 0 0 18px; */
-}
 td {
     font-size: 1.3rem;
     padding: 2vh 1.5vh 2vh 1.5vh;
