@@ -15,9 +15,9 @@ const tableBtn = document.getElementById("tablemode");
 const cardBtn = document.getElementById("cardmode");
 
 const mainElement = document.getElementsByTagName("main")[0];
-let allCloseElements;  // store all close button of each card
-let allEditElements;  // store all edit button of each card
-let allReadElements; // store all eye button of each card
+let CloseBtns;  // store all close button of each card
+let editBtns;  // store all edit button of each card
+let statusBtns; // store all eye button of each card
 
 
 
@@ -57,6 +57,78 @@ cardCount = 1;  // set to 1 since we're at card mode
 
 // Functions executed in web page
 
+/**
+ * Add all event listeners (for status buttons, edit buttons, and close buttons) 
+ * needed for card mode and table mode to operate on books objects in library[]
+ * @param {*} mode          string storing "card"/"table" to match the current book display mode
+ * @param {*} CloseBtns     all close buttons in a card/table data
+ * @param {*} statusBtns    all status buttons in a card/table data
+ * @param {*} editBtns      all edit buttons in a card/table data
+ */
+function setBookEventListeners(mode, CloseBtns, statusBtns, editBtns) {
+    CloseBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            let title;
+            if (mode === "card") {
+                // Retrieves the title of the book based on html element order
+                title = btn.parentElement.parentElement.nextElementSibling.textContent; 
+            } else if (mode === "table") {
+                title = btn.parentElement.parentElement.firstElementChild.textContent;
+            }
+            
+            removeBookFromLibrary(findBookInLibrary(title));
+            displayBooks();  // only gets triggered when a button is clicked
+        });
+    });
+
+    statusBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            let title;
+            if (mode === "card") {
+                title = btn.parentElement.parentElement.querySelector(".card-title").textContent;
+            } else if (mode === "table") {
+                title = btn.parentElement.parentElement.firstElementChild.textContent
+            }
+
+            if (btn.classList.contains("complete")) {
+                btn.classList.remove("complete");
+                btn.classList.add("incomplete");                
+            } else {
+                btn.classList.remove("incomplete");
+                btn.classList.add("complete");
+            }
+            editStatusInLibrary(findBookInLibrary(title));
+        });
+    });
+
+    editBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            if (editBookWindow.style.display === "none") {
+                let title;
+                if (mode === "card") {
+                    title = btn.parentElement.parentElement.nextElementSibling.textContent;
+                } else if (mode === "table") {
+                    title = btn.parentElement.parentElement.firstElementChild.textContent;
+                }
+
+                // put book's title in the editing window
+                editBookWindow.querySelector(".editedbook").textContent = title;
+
+                editBookWindow.style.display = "block";  // show edit window to screen
+
+                // change checkbox text and value in edit window to match the book being edited
+                const bookObj = findBookInLibrary(title);
+                editBookWindow.querySelector("#book-status").checked = bookObj.status;
+                const checkboxText = editBookWindow.querySelector("#book-status").previousElementSibling;
+                if (bookObj.status) {
+                    checkboxText.textContent = "Completed";
+                } else {
+                    checkboxText.textContent = "Incomplete";
+                }
+              }
+        });
+    });
+}
 
 
 /**
@@ -136,54 +208,9 @@ function drawTable() {
     table.appendChild(tableBody);
 
     const statusBtns = document.querySelectorAll(".table-status");
-    statusBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            console.log(btn);
-            if (btn.classList.contains("complete")) {
-                btn.classList.remove("complete");
-                btn.classList.add("incomplete");                
-            } else {
-                btn.classList.remove("incomplete");
-                btn.classList.add("complete");
-            }
-            const title = btn.parentElement.parentElement.firstElementChild.textContent;
-            editStatusInLibrary(findBookInLibrary(title));
-        });
-    });
-
     const editBtns = document.querySelectorAll(".table-edit");
-    editBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            if (editBookWindow.style.display === "none") {
-                const booktitle = btn.parentElement.parentElement.firstElementChild.textContent;
-
-                // put book's title in the editing window
-                editBookWindow.querySelector(".editedbook").textContent = booktitle;
-                
-                editBookWindow.style.display = "block";  // show edit window to screen
-
-                // change checkbox text and value in edit window to match the book being edited
-                const bookObj = findBookInLibrary(booktitle);
-                editBookWindow.querySelector("#book-status").checked = bookObj.status;
-                const checkboxText = editBookWindow.querySelector("#book-status").previousElementSibling;
-                if (bookObj.status) {
-                    checkboxText.textContent = "Completed";
-                } else {
-                    checkboxText.textContent = "Incomplete";
-                }
-              }
-        });
-    });
-
     const closeBtns = document.querySelectorAll(".table-close");
-    closeBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-        // Retrieves the title of the book based on html element order
-        const title =  btn.parentElement.parentElement.firstElementChild.textContent;
-        removeBookFromLibrary(findBookInLibrary(title));
-        displayBooks();  // only gets triggered when a button is clicked
-    });
-});
+    setBookEventListeners("table", closeBtns, statusBtns, editBtns);
 }
 
 /**
@@ -222,54 +249,10 @@ function drawCard() {
 
         // add event listeners to card buttons
 
-        const closeBtns = document.querySelectorAll(".card-close");
-        closeBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            // Retrieves the title of the book based on html element order
-            const title = btn.parentElement.parentElement.nextElementSibling.textContent; 
-            removeBookFromLibrary(findBookInLibrary(title));
-            displayBooks();  // only gets triggered when a button is clicked
-        });
-    });
-
+    const closeBtns = document.querySelectorAll(".card-close");
     const statusBtns = document.querySelectorAll(".card-status");
-    statusBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            const title = btn.parentElement.parentElement.querySelector(".card-title").textContent;
-            if (btn.classList.contains("complete")) {
-                btn.classList.remove("complete");
-                btn.classList.add("incomplete");                
-            } else {
-                btn.classList.remove("incomplete");
-                btn.classList.add("complete");
-            }
-            editStatusInLibrary(findBookInLibrary(title));
-            console.log(library);
-        });
-    });
-    
     const editBtns = document.querySelectorAll(".card-edit");
-    editBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            if (editBookWindow.style.display === "none") {
-                const booktitle = btn.parentElement.parentElement.nextElementSibling.textContent;
-                // put book's title in the editing window
-                editBookWindow.querySelector(".editedbook").textContent = booktitle;
-                
-                editBookWindow.style.display = "block";  // show edit window to screen
-
-                // change checkbox text and value in edit window to match the book being edited
-                const bookObj = findBookInLibrary(booktitle);
-                editBookWindow.querySelector("#book-status").checked = bookObj.status;
-                const checkboxText = editBookWindow.querySelector("#book-status").previousElementSibling;
-                if (bookObj.status) {
-                    checkboxText.textContent = "Completed";
-                } else {
-                    checkboxText.textContent = "Incomplete";
-                }
-              }
-        });
-    });
+    setBookEventListeners("card", closeBtns, statusBtns, editBtns);
 }
 
 /**
@@ -406,7 +389,6 @@ editBookSubmitBtn.addEventListener("submit", (event) => {
     // retrieve book title from edit window header
     const oldtitle = editBookWindow.querySelector(".editedbook").textContent;
     const oldbook = findBookInLibrary(oldtitle);
-    console.log(oldbook);
     editBookInLibrary(oldbook, newTitle, newAuthor, newStatus);
     displayBooks();
     
@@ -424,7 +406,6 @@ tableBtn.addEventListener("click", () => {
     // mainElement.classList.remove("main-card");
     // mainElement.classList.add("main-table");
     displayBooks();
-    // console.log("list mode:\n cardCount = " + cardCount + " tableCount = " + tableCount);
 });
 cardBtn.addEventListener("click", () => {
     cardCount = 1;
@@ -433,5 +414,4 @@ cardBtn.addEventListener("click", () => {
     // mainElement.classList.remove("main-table");
     // mainElement.classList.add("main-card");
     displayBooks();
-    // console.log("card mode:\n cardCount = " + cardCount + " tableCount = " + tableCount);
 });
