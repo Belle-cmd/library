@@ -42,3 +42,5 @@ book image by [Clker-Free-Vector-Images](https://pixabay.com/users/clker-free-ve
 book by [Jan](https://pixabay.com/users/janjf93-3084263/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1699641) from [pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1699641)
 
 Eye icon from [Google Fonts](https://fonts.google.com/icons?selected=Material%20Symbols%20Outlined%3Avisibility%3AFILL%400%3Bwght%40400%3BGRAD%400%3Bopsz%4048)
+
+Github icon from [Pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2582757) by [b3nj5m1n](https://pixabay.com/users/b3nj5m1n-5952967/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2582757)
