@@ -60,7 +60,7 @@ cardCount = 1;  // set to 1 since we're at card mode
 
 /**
  * Add all event listeners (for status buttons, edit buttons, and close buttons) 
- * needed for card mode and table mode to operate on books objects in library[]
+ * needed for BOTH card mode and table mode to operate on books objects in library[]
  * @param {*} mode          string storing "card"/"table" to match the current book display mode
  * @param {*} CloseBtns     all close buttons in a card/table data
  * @param {*} statusBtns    all status buttons in a card/table data
@@ -136,7 +136,7 @@ function setBookEventListeners(mode, CloseBtns, statusBtns, editBtns) {
  * Sets the book displayed in webpage to with a style for a complete/incomplete book, based on
  * the matching book object's status in library[]
  * @param {*} book book object
- * @param {*} cardElement HTML element of the status button
+ * @param {*} statusElement HTML element of the status button
  */
 function setBookStatus(book, statusElement) {
     if (book.status) {
@@ -198,8 +198,8 @@ function drawTable() {
             </td>
         `;
 
-        const tableStatusElem = newRow.querySelector(".table-status");
-        setBookStatus(item, tableStatusElem);
+        const tableStatusElem = newRow.querySelector(".table-status");  // retrieves status button
+        setBookStatus(item, tableStatusElem);  // adds css class to button based on reading status
 
         tableBody.appendChild(newRow);
     });
@@ -314,7 +314,7 @@ function editBookInLibrary(book, newTitle, newAuthor, newStatus) {
 
 /**
  * addNewBookToLibrary() checks if the book being added already exists in the library or not. If so,
- * do nothing. Otherwise, add it to the library .
+ * do nothing. Otherwise, add it to the library.
  * @param {*} title     string title of the book
  * @param {*} author    string author of the book
  * @param {*} status    boolean true = completed reading, false = not yet finished
