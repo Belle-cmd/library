@@ -22,25 +22,106 @@ let statusBtns; // store all eye button of each card
 
 
 // Objects in the webpage
-let library = [];  // store all books regardless of their reading status
-let tableCount = 0;
-let cardCount = 0;
-
 function Book(title, author, status) {
     this.title = title;
     this.author = author;
     this.status = status;
 }
 
+function Library() {
+    this.storage = [];  // store all books regardless of their reading status
+}
+
+
+let tableCount = 0;
+let cardCount = 0;
+const initialLib = new Library();
+
+/**
+ * Helper function to find a particular book in the library, based on a book title
+ * @param {*} title string book title
+ * @returns Book object
+ */
+Library.prototype.findBook = function(title) {
+    return this.storage.find(item => item.title == title);
+}
+
+/**
+ * Remove book from library[], based on book title
+ * @param {*} book Book object
+ */
+Library.prototype.removeBook = function(book) {
+    if (typeof book !== "undefined") {
+        const target = library.indexOf(book);
+        library.splice(target, 1);
+    } else {
+        console.log("Can't find specified book " + book.title + " to delete");
+    }
+}
+
+/**
+ * Edit book reading status based on titile
+ * @param {*} book Book object
+ */
+Library.prototype.editReadingStatus = function(book) {
+    if (typeof book !== "undefined") {
+        book.status ? book.status = false : book.status = true;
+    } else {
+        console.log("Can't find specified book " + book.title + " to edit reading status");
+    }
+}
+
+/**
+ * Change a specified book from library[] into its new values from user input
+ * @param {*} book          book object
+ * @param {*} newTitle      string new title of the book
+ * @param {*} newAuthor     string new author of the book
+ * @param {*} newStatus     boolean new book reading status (true = complete, false = incomplete)
+ */
+Library.prototype.editBook = function(book, newTitle, newAuthor, newStatus) {
+    if (typeof book === "undefined") {
+        console.log("Inputted book doesn't exist in the library");
+        return;  // exit the function
+    }
+
+    if (newTitle !== "") {
+        book.title = newTitle;
+    }
+    if (newAuthor !== "") {
+        book.author = newAuthor;
+    }
+    book.status = newStatus;
+}
+
+/**
+ * addNewBookToLibrary() checks if the book being added already exists in the library or not. If so,
+ * do nothing. Otherwise, add it to the library.
+ * @param {*} title     string title of the book
+ * @param {*} author    string author of the book
+ * @param {*} status    boolean true = completed reading, false = not yet finished
+ */
+Library.prototype.addBook = function(title, author, status) {
+    // checks if the book being created already exists in library
+    const checker = Library.storage.findBook(title);
+    if (typeof checker === "undefined") {
+        // the book doesn't exists in the library yet
+        const newBook = new Book(title, author, status);
+        initialLib.storage.push(newBook);
+        console.log("New book added");
+    } else {
+        console.log("Book already exists");
+    }
+}
+
 // Populate library with dummy books
-library.push(new Book("Feeling Good", "David D. Burns", false));
-library.push(new Book("Frankenstein", "Mary Shelley", true));
-library.push(new Book("The Picture of Dorian Gray", "Oscar Wilde", false));
-library.push(new Book("C Programming Language", "Kerninghan Ritchie", false));
-library.push(new Book("The Power of Habit", "Charles Duhigg", true));
-library.push(new Book("Dracula", "Bram Stoker", true));
-library.push(new Book("Animal Farm", "George Orwell", true));
-library.push(new Book("The Great Gatsby", "F. Scott Fitzgerald", true));
+initialLib.storage.push(new Book("Feeling Good", "David D. Burns", false));
+initialLib.storage.push(new Book("Frankenstein", "Mary Shelley", true));
+initialLib.storage.push(new Book("The Picture of Dorian Gray", "Oscar Wilde", false));
+initialLib.storage.push(new Book("C Programming Language", "Kerninghan Ritchie", false));
+initialLib.storage.push(new Book("The Power of Habit", "Charles Duhigg", true));
+initialLib.storage.push(new Book("Dracula", "Bram Stoker", true));
+initialLib.storage.push(new Book("Animal Farm", "George Orwell", true));
+initialLib.storage.push(new Book("The Great Gatsby", "F. Scott Fitzgerald", true));
 
 
 
@@ -77,7 +158,7 @@ function setBookEventListeners(mode, CloseBtns, statusBtns, editBtns) {
                 title = btn.parentElement.parentElement.firstElementChild.textContent;
             }
             
-            removeBookFromLibrary(findBookInLibrary(title));
+            initialLib.removeBook(initialLib.findBook(title));
             displayBooks();  // only gets triggered when a button is clicked
         });
     });
@@ -98,7 +179,7 @@ function setBookEventListeners(mode, CloseBtns, statusBtns, editBtns) {
                 btn.classList.remove("incomplete");
                 btn.classList.add("complete");
             }
-            editStatusInLibrary(findBookInLibrary(title));
+            initialLib.editReadingStatus(initialLib.findBook(title));
         });
     });
 
@@ -118,7 +199,7 @@ function setBookEventListeners(mode, CloseBtns, statusBtns, editBtns) {
                 editBookWindow.style.display = "block";  // show edit window to screen
 
                 // change checkbox text and value in edit window to match the book being edited
-                const bookObj = findBookInLibrary(title);
+                const bookObj = initialLib.findBook(title);
                 editBookWindow.querySelector("#book-status").checked = bookObj.status;
                 const checkboxText = editBookWindow.querySelector("#book-status").previousElementSibling;
                 if (bookObj.status) {
@@ -186,7 +267,7 @@ function drawTable() {
 
     // store all data inside tbody
     const tableBody = document.createElement("tbody");
-    library.forEach(item => {
+    initialLib.storage.forEach(item => {
         const newRow = document.createElement("tr");
         newRow.innerHTML = `
             <td>${item.title}</td>
@@ -221,7 +302,7 @@ function drawTable() {
 function drawCard() {
     mainElement.replaceChildren();  // remove all of main's children
 
-    library.forEach(item => {
+    initialLib.storage.forEach(item => {
         const markup = `
             <div class="card-img">
                 <div class="card-options">
@@ -255,82 +336,8 @@ function drawCard() {
     setBookEventListeners("card", closeBtns, statusBtns, editBtns);
 }
 
-/**
- * Helper function to find a particular book in the library, based on a book title
- * @param {*} title string book title
- * @returns Book object
- */
-function findBookInLibrary(title) {
-    return library.find(item => item.title == title);
-}
 
-/**
- * Remove book from library[], based on book title
- * @param {*} book Book object
- */
-function removeBookFromLibrary(book) {
-    if (typeof book !== "undefined") {
-        const target = library.indexOf(book);
-        library.splice(target, 1);
-    } else {
-        console.log("Can't find specified book " + book.title + " to delete");
-    }
 
-}
-
-/**
- * Edit book reading status based on titile
- * @param {*} book Book object
- */
-function editStatusInLibrary(book) {
-    if (typeof book !== "undefined") {
-        book.status ? book.status = false : book.status = true;
-    } else {
-        console.log("Can't find specified book " + book.title + " to edit reading status");
-    }
-}
-
-/**
- * Change a specified book from library[] into its new values from user input
- * @param {*} book          book object
- * @param {*} newTitle      string new title of the book
- * @param {*} newAuthor     string new author of the book
- * @param {*} newStatus     boolean new book reading status (true = complete, false = incomplete)
- */
-function editBookInLibrary(book, newTitle, newAuthor, newStatus) {
-    if (typeof book === "undefined") {
-        console.log("Inputted book doesn't exist in the library");
-        return;  // exit the function
-    }
-
-    if (newTitle !== "") {
-        book.title = newTitle;
-    }
-    if (newAuthor !== "") {
-        book.author = newAuthor;
-    }
-    book.status = newStatus;
-}
-
-/**
- * addNewBookToLibrary() checks if the book being added already exists in the library or not. If so,
- * do nothing. Otherwise, add it to the library.
- * @param {*} title     string title of the book
- * @param {*} author    string author of the book
- * @param {*} status    boolean true = completed reading, false = not yet finished
- */
-function addBookToLibrary(title, author, status) {
-    // checks if the book being created already exists in library
-    const checker = findBookInLibrary(title);
-    if (typeof checker === "undefined") {
-        // the book doesn't exists in the library yet
-        const newBook = new Book(title, author, status);
-        library.push(newBook);
-        console.log("New book added");
-    } else {
-        console.log("Book already exists");
-    }
-}
 
 
 
@@ -358,7 +365,7 @@ newBookSubmitBtn.addEventListener("submit", (event) => {
     const author = document.getElementById("newbook-author").value;
     const status = document.getElementById("newbook-status").checked;
 
-    addBookToLibrary(title, author, status);
+    library.addBook(title, author, status);
     displayBooks();
     newBookwindow.style.display = "none";  // hide the book creation window
 });
@@ -388,8 +395,8 @@ editBookSubmitBtn.addEventListener("submit", (event) => {
 
     // retrieve book title from edit window header
     const oldtitle = editBookWindow.querySelector(".editedbook").textContent;
-    const oldbook = findBookInLibrary(oldtitle);
-    editBookInLibrary(oldbook, newTitle, newAuthor, newStatus);
+    const oldbook = initialLib.findBook(oldtitle);
+    initialLib.editBook(oldbook, newTitle, newAuthor, newStatus);
     displayBooks();
     
     // IMPORTANT: needed changes to edit window and its input elements to prepare for new data
