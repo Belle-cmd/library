@@ -52,8 +52,8 @@ Library.prototype.findBook = function(title) {
  */
 Library.prototype.removeBook = function(book) {
     if (typeof book !== "undefined") {
-        const target = library.indexOf(book);
-        library.splice(target, 1);
+        const target = this.storage.indexOf(book);
+        this.storage.splice(target, 1);
     } else {
         console.log("Can't find specified book " + book.title + " to delete");
     }
